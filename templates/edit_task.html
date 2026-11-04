@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit_Task</title>
+</head>
+<body>
+    <div>
+        {% include "navbar.html" %}
+        <div class="form-section">
+            <h1>Edit Task</h1>
+            <form action="{% url 'add_task' %}" method="post">
+                {% csrf_token %}
+                <label for="Title">Title:</label><br>
+                <input type="text" name="title" id="title"><br>
+                <label for="description">Description:</label><br>
+                <input type="text" name="description" id="description"><br>
+                <div class="btn">
+                    <button>Save</button>
+                    <button class="cancel-btn">Cancel</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    
+</body>
+</html>

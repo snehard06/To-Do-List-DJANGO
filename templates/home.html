@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+
+<body>
+    <div class="parent-section">
+        {% include "navbar.html" %}
+
+
+        <div class="Task-bar">
+            <h1>All Tasks</h1>
+            <table class="task-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Done</th>
+                        <th>Created</th>
+                        <th>Actions</th>
+                    </tr>
+                    {% for data in data %}
+                    <tr>
+                        <td>{{data.title}}</td>
+                        <td>{{data.description}}</td>
+                        <td>
+                            <form method="POST" action="{% url 'update_task_status' data.id %}">
+                                {% csrf_token %}
+
+                                <input type="hidden" name="done" value="false">
+
+                                <input type="checkbox" name="done" value="true" {% if data.done %}checked{% endif %}
+                                    onchange="this.form.submit()">
+                            </form>
+                        </td>
+                        <td>{{data.created}}</td>
+                        <td>
+                            <button class="edit-btn">Edit</button>
+                            <button class="delete-btn">Delete</button>
+
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td>No Tasks Yet</td>
+                    </tr>
+                    {% endfor %}
+                </thead>
+
+            </table>
+
+
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>
